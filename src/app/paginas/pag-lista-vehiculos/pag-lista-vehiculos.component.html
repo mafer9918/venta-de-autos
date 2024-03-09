@@ -1,0 +1,95 @@
+<div class="card">
+  <div class="card-header">LISTA DE VEHÍCULOS</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1">Filtro:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Marca"
+          [(ngModel)]="filtro"
+          (input)="filtrarPorMarca()"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">FILTRADO POR: {{ filtro }}</div>
+      <div class="col-6 d-flex justify-content-end">
+        <button class="btn btn-info" [routerLink]="['/nuevo']">
+          Agregar vehículo
+        </button>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-sm-12" style="overflow-x: auto">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>
+                <button
+                  class="btn btn-success btn-xs"
+                  [ngClass]="{
+                    'btn-warning': mostrarImagen,
+                    'btn-success': !mostrarImagen
+                  }"
+                  (click)="mostrar()"
+                  [innerText]=""
+                >
+                  {{ mostrarImagen ? "Ocultar" : "Mostrar" }} Imagen
+                </button>
+              </th>
+              <th>MARCA</th>
+              <th>MODELO</th>
+              <th>AÑO</th>
+              <th>COLOR</th>
+              <th>KILOMETRAJE</th>
+              <th>PRECIO</th>
+              <th>CALIFICACIÓN</th>
+              <th>ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listaVehiculos">
+              <td>
+                <img
+                  [src]="item.foto"
+                  style="width: 200px; height: 120px"
+                  *ngIf="mostrarImagen"
+                />
+              </td>
+              <td>{{ item.marca }}</td>
+              <td>{{ item.modelo | lowercase | aEspacio : "-" }}</td>
+              <td [innerText]="item.anio"></td>
+              <td>{{ item.color }}</td>
+              <td>{{ item.kilometraje }}</td>
+              <td>{{ item.precio | currency }}</td>
+              <td>
+                <app-calificacion
+                  [calificacion]="item.calificacion"
+                  (accion)="recepcion($event)"
+                ></app-calificacion>
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  [routerLink]="['/vehiculo/' + item.codigo]"
+                >
+                  Ver
+                </button>
+                &nbsp;
+                <button
+                  class="btn btn-danger"
+                  (click)="eliminarVehiculo(item.codigo)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
