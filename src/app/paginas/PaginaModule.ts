@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UtilitariosModule } from "../utilitarios/pipes/UtilitariosModule";
 import { RouterModule } from '@angular/router';
 import { PagVehiculoComponent } from "./PagVehiculo/PagVehiculo.component";
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 @NgModule({
     imports:[
@@ -13,7 +14,8 @@ import { PagVehiculoComponent } from "./PagVehiculo/PagVehiculo.component";
         FormsModule,
         UtilitariosModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
+        SweetAlert2Module.forRoot()
     ],
     declarations:[
         PagListaVehiculosComponent,

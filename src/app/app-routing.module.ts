@@ -5,6 +5,9 @@ import { PagListaVehiculosComponent } from './paginas/pag-lista-vehiculos/pag-li
 import { PagNotFoundComponent } from './paginas/PagNotFound/PagNotFound.component';
 import { PagVehiculoComponent } from './paginas/PagVehiculo/PagVehiculo.component';
 import { AddVehiculoFormComponent } from './paginas/AddVehiculoForm/AddVehiculoForm.component';
+import { ListaClientesComponent } from './clientes/lista-clientes/lista-clientes.component';
+import { DetalleClienteComponent } from './clientes/detalle-cliente/detalle-cliente.component';
+import { AgregarClienteComponent } from './clientes/agregar-cliente/agregar-cliente.component';
 
 const routes: Routes = [
   {
@@ -27,6 +30,26 @@ const routes: Routes = [
   {
     path: 'nuevo',
     component: AddVehiculoFormComponent,
+  },
+  {
+    path: 'editar/:codigo',
+    component: AddVehiculoFormComponent,
+  },
+  {
+    path: 'clientes',
+    component: ListaClientesComponent,
+  },
+  {
+    path: 'cliente/:id',
+    component: DetalleClienteComponent,
+  },
+  {
+    path: 'editarCliente/:id',
+    component: AgregarClienteComponent,
+  },
+  {
+    path: 'nuevoCliente',
+    component: AgregarClienteComponent,
   },
   {
     path: '**',

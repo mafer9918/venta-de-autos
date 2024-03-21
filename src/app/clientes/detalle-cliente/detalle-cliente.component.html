@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Detalle del Cliente: {{ cliente?.id }}</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <!-- Información del cliente -->
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Nombre:</strong></td>
+              <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.nombre }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Apellido:</strong></td>
+              <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.apellido }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Usuario:</strong></td>
+              <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.usuario }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Email:</strong></td>
+              <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.email }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Telefono:</strong></td>
+              <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.telefono }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: left; padding: 20px">
+    <button
+      [routerLink]="['/clientes']"
+      class="btn btn-light border-dark"
+      style="text-align: center; width: 20%"
+    >
+      <i class="fa fa-chevron-left mr-5" aria-hidden="true"></i>
+      <span class="ml-5"> Regreso</span>
+    </button>
+  </div>
+</div>

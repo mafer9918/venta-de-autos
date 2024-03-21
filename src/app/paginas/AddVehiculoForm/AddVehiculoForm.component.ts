@@ -1,93 +1,171 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehiculoService } from '../../servicios/Vehiculo.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Vehiculo } from '../../utilitarios/modelos/Vehiculo';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-AddVehiculoForm',
   templateUrl: './AddVehiculoForm.component.html',
-  styleUrls: ['./AddVehiculoForm.component.css']
+  styleUrls: ['./AddVehiculoForm.component.css'],
 })
-export class AddVehiculoFormComponent{
+export class AddVehiculoFormComponent implements OnInit {
   vehiculoForm: FormGroup;
+  id: string;
+  isEdit: boolean;
+  vehiculo: Vehiculo | undefined;
   constructor(
     fb: FormBuilder,
     private vehiculoService: VehiculoService,
-    private route: Router
-    ) { 
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.id = '';
+    this.isEdit = false;
     this.vehiculoForm = fb.group({
-      marca:[
+      codigo: [
+        { value: '', disabled: this.isEdit },
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(10),
+        ],
+      ],
+      marca: [
         '',
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(25)
-        ]
+          Validators.maxLength(25),
+        ],
       ],
-      modelo:[
+      modelo: [
         '',
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(25)
-        ]
+          Validators.maxLength(25),
+        ],
       ],
-      color:[
+      kilometraje: [
         '',
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(20)
-        ]
+          Validators.maxLength(20),
+        ],
       ],
-      kilometraje:[
+      precio: ['', [Validators.required, Validators.min(1)]],
+      anio: [
         '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(20)
-        ]
+        [Validators.required, Validators.min(1910), Validators.max(2024)],
       ],
-      precio:[
+      calificacion: [
         '',
-        [
-          Validators.required,
-          Validators.min(1)
-        ]
+        [Validators.required, Validators.min(1), Validators.max(5)],
       ],
-      anio:[
-        '',
-        [
-          Validators.required,
-          Validators.min(2000),
-          Validators.max(2024)
-        ]
-      ],
-      calificacion:[
-        '',
-        [
-          Validators.required,
-          Validators.min(1),
-          Validators.max(5)
-        ]
-      ],
-      foto:[
-        '',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(1000)
-        ]
-      ]
-    })
+      foto: ['', [Validators.minLength(10), Validators.maxLength(1000)]],
+    });
   }
 
-  onSubmit(){
-    if (this.vehiculoForm.invalid) return;
-    this.vehiculoService.addVehiculo({
-      codigo: this.vehiculoService.listaVehiculos.length + 1,
-      ...this.vehiculoForm.value,
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.id = params['codigo'];
+      if (this.id) {
+        this.isEdit = true;
+        this.vehiculoService
+          .obtenerVehiculoPorId(this.id)
+          .subscribe((result) => {
+            if (result.codigo == '1') {
+              this.vehiculoForm.setValue({
+                codigo: result.data.codigo,
+                marca: result.data.marca,
+                modelo: result.data.modelo,
+                kilometraje: result.data.kilometraje,
+                precio: result.data.precio,
+                anio: result.data.anio,
+                calificacion: result.data.calificacion,
+                foto: result.data.foto,
+              });
+              this.vehiculoForm.get('codigo')?.disable();
+            } else {
+              Swal.fire({
+                title: 'Error',
+                text: 'No se pudo cargar la información',
+                icon: 'error',
+              });
+            }
+          });
+      } else {
+        this.isEdit = false;
+      }
     });
-    this.route.navigate(['vehiculos']);
+  }
+
+  onSubmit() {
+    if (this.vehiculoForm.valid) {
+      if (this.isEdit) {
+        this.vehiculoService
+          .updateVehiculo(
+            { codigo: this.id, ...this.vehiculoForm.value },
+            this.id
+          )
+          .subscribe((result) => {
+            if (result.codigo == '1') {
+              Swal.fire({
+                title: 'Éxito',
+                text: 'Vehículo actualizado correctamente',
+                icon: 'success',
+              }).then((res) => {
+                this.vehiculoForm.reset();
+                this.regresar();
+              });
+            } else {
+              Swal.fire({
+                title: 'Error',
+                text: 'No se pudo actualizar el vehículo' + result.mensaje,
+                icon: 'error',
+              });
+              this.regresar();
+            }
+          });
+      } else {
+        this.vehiculoService
+          .addVehiculo({
+            ...this.vehiculoForm.value,
+          })
+          .subscribe((result) => {
+            if (result.codigo == '1') {
+              Swal.fire({
+                title: 'Éxito',
+                text: 'Vehículo registrado correctamente',
+                icon: 'success',
+              }).then((res) => {
+                this.vehiculoForm.reset();
+                this.regresar();
+              });
+            } else {
+              Swal.fire({
+                title: 'Error',
+                text: 'No se pudo registrar el vehículo' + result.mensaje,
+                icon: 'error',
+              });
+              this.regresar();
+            }
+          });
+      }
+    } else {
+      Swal.fire({
+        title: 'Alerta',
+        text: 'Faltan llenar datos en el formulario',
+        icon: 'error',
+      });
+    }
+  }
+
+  regresar() {
+    this.isEdit = false;
+    this.router.navigate(['vehiculos']);
   }
 }

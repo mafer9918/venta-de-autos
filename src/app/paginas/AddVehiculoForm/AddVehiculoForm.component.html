@@ -1,149 +1,137 @@
 <form [formGroup]="vehiculoForm" (ngSubmit)="onSubmit()">
-  <div class="row">
-    <div class="col-6">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Ingresar marca del vehiculo"
-        formControlName="marca"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('marca')?.invalid &&
-          vehiculoForm.get('marca')?.touched
-        "
-      >
-        Este campo es obligatorio y debe tener entre 3 y 30 caracteres
-      </div>
-    </div>
-    <div class="col-6">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Ingresar color del vehiculo"
-        formControlName="color"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('color')?.invalid &&
-          vehiculoForm.get('color')?.touched
-        "
-      >
-        Este campo es obligatorio y debe tener entre 3 y 20 caracteres
-      </div>
-    </div>
+  <div class="mb-5">
+    <h1>{{ isEdit ? "Editar vehículo: " + id : "Agregar vehículo" }}</h1>
   </div>
-  <div class="row mt-3">
-    <div class="col-6">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Ingresar modelo del vehiculo"
-        formControlName="modelo"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('modelo')?.invalid &&
-          vehiculoForm.get('modelo')?.touched
-        "
-      >
-        Este campo es obligatorio y debe tener entre 3 y 30 caracteres
-      </div>
-    </div>
-    <div class="col-6">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Ingresar kilometraje del vehiculo"
-        formControlName="kilometraje"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('kilometraje')?.invalid &&
-          vehiculoForm.get('kilometraje')?.touched
-        "
-      >
-        Este campo es obligatorio y debe tener entre 3 y 20 caracteres
-      </div>
-    </div>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Ingresar código del vehiculo"
+    formControlName="codigo"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('codigo')?.invalid && vehiculoForm.get('codigo')?.touched
+    "
+  >
+    Este campo es obligatorio y debe tener entre 3 y 10 caracteres
   </div>
-  <div class="row mt-3">
-    <div class="col-6">
-      <input
-        type="number"
-        class="form-control"
-        placeholder="Ingresar precio del vehiculo"
-        formControlName="precio"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('precio')?.invalid &&
-          vehiculoForm.get('precio')?.touched
-        "
-      >
-        Este campo es obligatorio y debe ser mayor a 0
-      </div>
-    </div>
-    <div class="col-6">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Ingresar año del vehiculo"
-        formControlName="anio"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('anio')?.invalid &&
-          vehiculoForm.get('anio')?.touched
-        "
-      >
-        Este campo es obligatorio y debe ser mayor a 2000 y menor al año actual
-      </div>
-    </div>
+  <input
+    type="text"
+    class="form-control mt-3"
+    placeholder="Ingresar marca del vehiculo"
+    formControlName="marca"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('marca')?.invalid && vehiculoForm.get('marca')?.touched
+    "
+  >
+    Este campo es obligatorio y debe tener entre 3 y 30 caracteres
   </div>
-  <div class="row mt-3">
-    <div class="col-6">
-      <input
-        type="number"
-        class="form-control"
-        placeholder="Ingresar calificacion del vehiculo"
-        formControlName="calificacion"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('calificacion')?.invalid &&
-          vehiculoForm.get('calificacion')?.touched
-        "
-      >
-        Este campo es obligatorio y debe ser entre 1 y 5
-      </div>
-    </div>
-    <div class="col-6">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Ingresar foto del vehiculo"
-        formControlName="foto"
-      />
-      <div
-        class="alert alert-danger mt-3"
-        *ngIf="
-          vehiculoForm.get('foto')?.invalid &&
-          vehiculoForm.get('foto')?.touched
-        "
-      >
-        Este campo es obligatorio
-      </div>
-    </div>
+  <input
+    type="text"
+    class="form-control mt-3"
+    placeholder="Ingresar modelo del vehiculo"
+    formControlName="modelo"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('modelo')?.invalid && vehiculoForm.get('modelo')?.touched
+    "
+  >
+    Este campo es obligatorio y debe tener entre 3 y 30 caracteres
   </div>
-  <div class="d-flex justify-content-between">
-    <button class="btn btn-primary mt-3 justify-content-right ml-auto" [disabled]="vehiculoForm.invalid">Enviar</button>
+  <input
+    type="text"
+    class="form-control mt-3"
+    placeholder="Ingresar kilometraje del vehiculo"
+    formControlName="kilometraje"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('kilometraje')?.invalid &&
+      vehiculoForm.get('kilometraje')?.touched
+    "
+  >
+    Este campo es obligatorio y debe tener entre 3 y 20 caracteres
+  </div>
+  <input
+    type="number"
+    class="form-control mt-3"
+    placeholder="Ingresar precio del vehiculo"
+    formControlName="precio"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('precio')?.invalid && vehiculoForm.get('precio')?.touched
+    "
+  >
+    Este campo es obligatorio y debe ser mayor a 0
+  </div>
+  <input
+    type="text"
+    class="form-control mt-3"
+    placeholder="Ingresar año del vehiculo"
+    formControlName="anio"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('anio')?.invalid && vehiculoForm.get('anio')?.touched
+    "
+  >
+    Este campo es obligatorio y debe ser mayor a 2000 y menor al año actual
+  </div>
+  <input
+    type="number"
+    class="form-control mt-3"
+    placeholder="Ingresar calificacion del vehiculo"
+    formControlName="calificacion"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('calificacion')?.invalid &&
+      vehiculoForm.get('calificacion')?.touched
+    "
+  >
+    Este campo es obligatorio y debe ser entre 1 y 5
+  </div>
+  <input
+    type="text"
+    class="form-control mt-3"
+    placeholder="Ingresar foto del vehiculo"
+    formControlName="foto"
+  />
+  <div
+    class="alert alert-danger mt-3"
+    *ngIf="
+      vehiculoForm.get('foto')?.invalid && vehiculoForm.get('foto')?.touched
+    "
+  >
+    Este campo debe ser entre 10 y 1000
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 text-center">
+      <button
+        type="submit"
+        class="btn btn-success btnSend mt-3 mx-3"
+        [disabled]="vehiculoForm.invalid"
+      >
+        {{ isEdit ? "Actualizar" : "Agregar" }}
+      </button>
+      <button
+        type="button"
+        (click)="regresar()"
+        class="btn btn-warning btnSend mt-3 mx-1"
+      >
+        Cancelar
+      </button>
+    </div>
   </div>
 </form>

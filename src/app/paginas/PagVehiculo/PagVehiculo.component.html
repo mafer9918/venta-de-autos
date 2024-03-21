@@ -1,28 +1,74 @@
 <div class="card">
   <div class="card-header">
-    Detalle del Vehiculo {{ vehiculo?.codigo }}: {{ vehiculo?.marca }}
-    {{ vehiculo?.modelo }}
+    <h4>
+      Detalle del Vehículo {{ vehiculo?.codigo }}: {{ vehiculo?.marca }}
+      {{ vehiculo?.modelo }}
+    </h4>
   </div>
-  <div class="row">
-    <div class="col-6 ml-5">
-      <p>{{ vehiculo?.marca }}</p>
-      <p>{{ vehiculo?.modelo }}</p>
-      <p [innerText]="vehiculo?.anio"></p>
-      <p>{{ vehiculo?.color }}</p>
-      <p>{{ vehiculo?.kilometraje }}</p>
-      <p>{{ vehiculo?.precio }}</p>
-    </div>
-    <div class="col-6">
-      <img [src]="vehiculo?.foto" style="width: 500px; height: 300px" />
+  <div class="card-body">
+    <div class="row">
+      <div class="col-4">
+        <!-- Información del vehículo -->
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td class="py-2 col-8"><strong>Marca:</strong></td>
+              <td class="py-2 col-4">{{ vehiculo?.marca }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 col-8"><strong>Modelo:</strong></td>
+              <td class="py-2 col-4">{{ vehiculo?.modelo }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 col-8"><strong>Año:</strong></td>
+              <td class="py-2 col-4">{{ vehiculo?.anio }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 col-8"><strong>Kilometraje:</strong></td>
+              <td class="py-2 col-4">{{ vehiculo?.kilometraje }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 col-8"><strong>Precio:</strong></td>
+              <td class="py-2 col-4">{{ vehiculo?.precio }}</td>
+            </tr>
+            <tr>
+              <td class="py-2 col-8"><strong>Calificación:</strong></td>
+              <td class="py-2 col-4"><app-calificacion
+                [calificacion]="vehiculo?.calificacion ?? 0"
+              ></app-calificacion></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="col-2 d-flex justify-content-end mt-auto">
+        <button
+          [routerLink]="['/vehiculos']"
+          class="btn btn-light border-primary"
+          style="width: auto;"
+        >
+          <i class="fa fa-shopping-cart text-primary" aria-hidden="true"></i>
+          <span class="ml-2 text-primary"> Comprar</span>
+        </button>
+      </div>
+      <div class="col-6 d-flex justify-content-center align-items-center">
+        <img
+          [src]="vehiculo?.foto"
+          class="img-fluid"
+          style="height: 300px; width: auto"
+        />
+      </div>
     </div>
   </div>
+
   <div style="text-align: left; padding: 20px">
     <button
-      [routerLink] = "['/vehiculos']"
+      [routerLink]="['/vehiculos']"
       class="btn btn-light border-dark"
       style="text-align: center; width: 20%"
     >
-      <i class="fa fa-chevron-left mr-5" aria-hidden="true"></i> Regreso
-  </button>
+      <i class="fa fa-chevron-left mr-5" aria-hidden="true"></i>
+      <span class="ml-5"> Regreso</span>
+    </button>
   </div>
 </div>

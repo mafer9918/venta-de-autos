@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">LISTA DE VEHÍCULOS</div>
+  <div class="card-header">LISTA DE CLIENTES</div>
   <div class="card-body">
     <div class="row">
       <div class="mb-3">
@@ -8,33 +8,33 @@
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
-          placeholder="Código/Marca/Modelo/Año"
+          placeholder="Nombre/Apellido"
           [(ngModel)]="filtro"
-          (blur)="consultarVehiculos()"
+          (blur)="consultarClientes()"
         />
       </div>
     </div>
     <div class="row">
       <div class="col-6">FILTRADO POR: {{ filtro }}</div>
       <div class="col-6 d-flex justify-content-end">
-        <button class="btn btn-info" [routerLink]="['/nuevo']">
-          Agregar vehículo
+        <button class="btn btn-info" [routerLink]="['/nuevoCliente']">
+          Agregar cliente
         </button>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="listaVehiculos.length !== 0">
+    <div class="row mt-3" *ngIf="listaClientes.length !== 0">
       <div class="col-sm-12" style="overflow-x: auto">
         <table class="table table-light">
           <thead>
             <tr>
-              <td colspan="8"></td>
+              <td colspan="6"></td>
               <td>
                 <div class="row">
-                  <td colspan="9">
+                  <td colspan="7">
                     <select
                       class="form-control"
                       [(ngModel)]="rows"
-                      (change)="consultarVehiculos()"
+                      (change)="consultarClientes()"
                     >
                       <option value="5">5</option>
                       <option value="10">10</option>
@@ -46,65 +46,43 @@
               </td>
             </tr>
             <tr>
-              <th scope="col">
-                <button
-                  class="btn btn-success btn-xs"
-                  [ngClass]="{
-                    'btn-warning': mostrarImagen,
-                    'btn-success': !mostrarImagen
-                  }"
-                  (click)="mostrar()"
-                  [innerText]=""
-                >
-                  {{ mostrarImagen ? "Ocultar" : "Mostrar" }} Imagen
-                </button>
-              </th>
-              <th>CODIGO</th>
-              <th>MARCA</th>
-              <th>MODELO</th>
-              <th>AÑO</th>
-              <th>KILOMETRAJE</th>
-              <th>PRECIO</th>
-              <th>CALIFICACIÓN</th>
+              <th>ID</th>
+              <th>NOMBRE</th>
+              <th>APELLIDO</th>
+              <th>TELEFONO</th>
+              <th>EMAIL</th>
+              <th>USUARIO</th>
               <th>ACCIONES</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of listaVehiculos">
+            <tr *ngFor="let item of listaClientes">
               <td>
-                <img
-                  [src]="item.foto"
-                  style="width: 200px; height: 120px"
-                  *ngIf="mostrarImagen"
-                />
+                {{ item.id }}
               </td>
-              <td>
-                <a [routerLink]="['/editar/'] + item.codigo">{{
-                  item.codigo
-                }}</a>
-              </td>
-              <td>{{ item.marca }}</td>
-              <td>{{ item.modelo | lowercase | aEspacio : "-" }}</td>
-              <td [innerText]="item.anio"></td>
-              <td>{{ item.kilometraje }}</td>
-              <td>{{ item.precio | currency }}</td>
-              <td>
-                <app-calificacion
-                  [calificacion]="item.calificacion"
-                  (accion)="recepcion($event)"
-                ></app-calificacion>
-              </td>
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.apellido }}</td>
+              <td>{{ item.telefono }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.usuario }}</td>
               <td>
                 <button
                   class="btn btn-primary"
-                  [routerLink]="['/vehiculo/' + item.codigo]"
+                  [routerLink]="['/cliente/' + item.id]"
                 >
                   Ver
                 </button>
                 &nbsp;
                 <button
+                  class="btn btn-success"
+                  [routerLink]="['/editarCliente/'] + item.id"
+                >
+                  Editar
+                </button>
+                &nbsp;
+                <button
                   class="btn btn-danger"
-                  (click)="eliminarVehiculo(item.codigo)"
+                  (click)="eliminarCliente(item.id)"
                 >
                   Eliminar
                 </button>
@@ -113,8 +91,11 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="9">
-                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+              <td colspan="7">
+                <nav
+                  aria-label="Page navigation example"
+                  class="d-flex justify-content-center"
+                >
                   <ul class="pagination">
                     <li class="page-item">
                       <a class="page-link" (click)="atras()">Atrás</a>
@@ -141,9 +122,9 @@
     </div>
   </div>
   <h2
-    *ngIf="listaVehiculos.length === 0"
+    *ngIf="listaClientes.length === 0"
     class="text-danger text-center mt-5 mb-5"
   >
-    No se encontró ningún vehículo
+    No se encontró ningún cliente
   </h2>
 </div>
