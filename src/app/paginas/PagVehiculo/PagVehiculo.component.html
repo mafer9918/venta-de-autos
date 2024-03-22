@@ -7,7 +7,7 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-4">
+      <div class="col-6">
         <!-- Información del vehículo -->
         <table class="table table-borderless">
           <tbody>
@@ -17,7 +17,7 @@
             </tr>
             <tr>
               <td class="py-2 col-8"><strong>Modelo:</strong></td>
-              <td class="py-2 col-4">{{ vehiculo?.modelo }}</td>
+              <td class="py-2 col-4">{{ vehiculo?.modelo}}</td>
             </tr>
             <tr>
               <td class="py-2 col-8"><strong>Año:</strong></td>
@@ -33,23 +33,14 @@
             </tr>
             <tr>
               <td class="py-2 col-8"><strong>Calificación:</strong></td>
-              <td class="py-2 col-4"><app-calificacion
-                [calificacion]="vehiculo?.calificacion ?? 0"
-              ></app-calificacion></td>
+              <td>
+                <div *ngIf="vehiculo">
+                  <app-calificacion [calificacion]="vehiculo.calificacion"></app-calificacion>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
-      </div>
-      
-      <div class="col-2 d-flex justify-content-end mt-auto">
-        <button
-          [routerLink]="['/vehiculos']"
-          class="btn btn-light border-primary"
-          style="width: auto;"
-        >
-          <i class="fa fa-shopping-cart text-primary" aria-hidden="true"></i>
-          <span class="ml-2 text-primary"> Comprar</span>
-        </button>
       </div>
       <div class="col-6 d-flex justify-content-center align-items-center">
         <img

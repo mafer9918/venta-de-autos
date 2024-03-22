@@ -1,16 +1,12 @@
-<div class="card">
+<div class="card mb-5">
   <div class="card-header">
     {{ isEdit ? "Editar cliente: " + id : "Registro del cliente" }}
   </div>
   <div class="card-body">
     <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
-      <div *ngIf="isEdit">
-        <label for="id">Id</label>
-        <input type="text" class="form-control mt-2" formControlName="id" />
-      </div>
       <div class="mt-3">
-        <label for="id">Nombre</label>
-        <input type="text" class="form-control mt-2" formControlName="nombre" />
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control mt-2" formControlName="nombre" id="nombre"/>
         <div
           class="alert alert-danger mt-3"
           *ngIf="
@@ -18,12 +14,12 @@
             clienteForm.get('nombre')?.touched
           "
         >
-          Este campo es obligatorio y debe tener entre 5 y 50 caracteres
+          Este campo es obligatorio y debe tener entre 5 y 50 caracteres (sólo letras)
         </div>
       </div>
       <div class="mt-3">
         <label for="apellido">Apellido</label>
-        <input type="text" class="form-control mt-2" formControlName="apellido" />
+        <input type="text" class="form-control mt-2" formControlName="apellido" id="apellido"/>
         <div
           class="alert alert-danger mt-3"
           *ngIf="
@@ -31,17 +27,17 @@
             clienteForm.get('apellido')?.touched
           "
         >
-          Este campo es obligatorio y debe tener entre 5 y 50 caracteres
+          Este campo es obligatorio y debe tener entre 5 y 50 caracteres (sólo letras)
         </div>
       </div>
       <div class="mt-3">
-        <label for="password">Password</label>
+        <label for="password">Contraseña</label>
         <div class="input-group">
           <input
             [type]="showPassword ? 'text' : 'password'"
             class="form-control mt-2"
             formControlName="password"
-            placeholder="Contraseña"
+            id="password"
           />
           &nbsp;
           <div class="input-group-append mt-2">
@@ -67,7 +63,7 @@
             clienteForm.get('password')?.touched
           "
         >
-          Este campo es obligatorio y debe tener entre 8 y 30 caracteres
+          Este campo debe tener entre 8 y 30 caracteres
         </div>
       </div>
       <br />
@@ -75,6 +71,7 @@
         type="checkbox"
         formControlName="isChecked"
         (change)="onChange()"
+        id="isChecked"
       />
       ¿Desea contacto? <br />
       <div *ngIf="isChecked == true">
@@ -84,6 +81,7 @@
             type="text"
             class="form-control mt-2"
             formControlName="email"
+            id="email"
           />
           <div
             class="alert alert-danger mt-3"
@@ -92,7 +90,7 @@
               clienteForm.get('email')?.touched
             "
           >
-            Ingresar un correo electrónico válido
+            Este campo es obligatorio y debe ser un correo electrónico válido
           </div>
         </div>
         <div class="mt-3">
@@ -101,6 +99,7 @@
             type="text"
             class="form-control mt-2"
             formControlName="telefono"
+            id="telefono"
           />
           <div
             class="alert alert-danger mt-3"
@@ -109,7 +108,7 @@
               clienteForm.get('telefono')?.touched
             "
           >
-            Este campo es obligatorio y debe tener entre 7 y 10 dígitos
+            Este campo es obligatorio y debe tener entre 7 y 10 dígitos (sólo números)
           </div>
         </div>
       </div>

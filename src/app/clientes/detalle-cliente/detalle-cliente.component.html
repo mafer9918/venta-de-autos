@@ -1,40 +1,57 @@
-<div class="card">
+<div class="card mb-4">
   <div class="card-header">
     <h4>Detalle del Cliente: {{ cliente?.id }}</h4>
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-12">
-        <!-- Información del cliente -->
-        <table class="table table-borderless">
+      <div class="col-4 mx-auto tableUser text-center p-4">
+          <img src="../../../assets/iconUser.png" class="mt-4 user" />
+        <div class="mt-4 mb-4">
+          <span class="nombreuser"
+            >{{ cliente?.nombre }} {{ cliente?.apellido }}</span
+          ><br />
+          <span class="infoUser text-left"
+            ><i class="fa fa-user" aria-hidden="true"></i> &nbsp;
+            {{ cliente?.usuario }}</span
+          ><br />
+          <span class="infoUser text-left"
+            ><i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;
+            {{ cliente?.email }}</span
+          ><br />
+          <span class="infoUser text-left"
+            ><i class="fa fa-mobile" aria-hidden="true"></i> &nbsp;
+            {{ cliente?.telefono }}</span
+          >
+        </div>
+        <!--<table class="table table-borderless">
           <tbody>
             <tr>
-              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Nombre:</strong></td>
+              <td class="py-2 px-2 col-2" style="text-align: right;"><strong>Nombre:</strong></td>
               <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.nombre }}</td>
             </tr>
             <tr>
-              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Apellido:</strong></td>
+              <td class="py-2 px-2 col-2" style="text-align: right;"><strong>Apellido:</strong></td>
               <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.apellido }}</td>
             </tr>
             <tr>
-              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Usuario:</strong></td>
+              <td class="py-2 px-2 col-2" style="text-align: right;"><strong>Usuario:</strong></td>
               <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.usuario }}</td>
             </tr>
             <tr>
-              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Email:</strong></td>
+              <td class="py-2 px-2 col-2" style="text-align: right;"><strong>Email:</strong></td>
               <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.email }}</td>
             </tr>
             <tr>
-              <td class="py-2 px-2 col-4" style="text-align: right;"><strong>Telefono:</strong></td>
+              <td class="py-2 px-2 col-2" style="text-align: right;"><strong>Telefono:</strong></td>
               <td class="py-2 px-2 col-4" style="text-align: left;">{{ cliente?.telefono }}</td>
             </tr>
           </tbody>
-        </table>
+        </table>-->
       </div>
     </div>
   </div>
 
-  <div style="text-align: left; padding: 20px">
+  <div style="text-align: left; padding: 20px" class="card-footer">
     <button
       [routerLink]="['/clientes']"
       class="btn btn-light border-dark"

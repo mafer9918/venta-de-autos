@@ -63,7 +63,7 @@ export class AddVehiculoFormComponent implements OnInit {
       ],
       calificacion: [
         '',
-        [Validators.required, Validators.min(1), Validators.max(5)],
+        [Validators.required, Validators.min(1), Validators.max(10)],
       ],
       foto: ['', [Validators.minLength(10), Validators.maxLength(1000)]],
     });
@@ -135,25 +135,39 @@ export class AddVehiculoFormComponent implements OnInit {
           .addVehiculo({
             ...this.vehiculoForm.value,
           })
-          .subscribe((result) => {
-            if (result.codigo == '1') {
-              Swal.fire({
-                title: 'Éxito',
-                text: 'Vehículo registrado correctamente',
-                icon: 'success',
-              }).then((res) => {
-                this.vehiculoForm.reset();
+          .subscribe(
+            (result) => {
+              console.log(JSON.stringify(result));
+              if (result.codigo == '1') {
+                Swal.fire({
+                  title: 'Éxito',
+                  text: 'Vehículo registrado correctamente',
+                  icon: 'success',
+                }).then((res) => {
+                  this.vehiculoForm.reset();
+                  this.regresar();
+                });
+              } else {
+                Swal.fire({
+                  title: 'Error',
+                  text: 'No se pudo registrar el vehículo' + result.mensaje,
+                  icon: 'error',
+                });
                 this.regresar();
-              });
-            } else {
+              }
+            },
+            (error) => {
+              let errorMessage = "";
+              if (error.error && error.error.error.codigo) {
+                errorMessage = error.error.error.codigo;
+              }
               Swal.fire({
                 title: 'Error',
-                text: 'No se pudo registrar el vehículo' + result.mensaje,
+                text: errorMessage,
                 icon: 'error',
               });
-              this.regresar();
             }
-          });
+          );
       }
     } else {
       Swal.fire({

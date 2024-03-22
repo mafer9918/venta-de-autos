@@ -7,7 +7,12 @@ import {
   map,
   throwError,
 } from 'rxjs';
-import { HttpBackend, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpBackend,
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { RespuestaCliente } from '../utilitarios/modelos/Respuesta';
 import { Cliente } from '../utilitarios/modelos/Cliente';
 
@@ -28,26 +33,17 @@ export class ClienteService {
     page?: number
   ): Observable<RespuestaCliente> {
     let body = new HttpParams();
-    body = filtro ? body.set('filtro', filtro): body;
-    body = rows ? body.set('rows', rows): body;
-    body = page ? body.set('page', page): body;
+    body = filtro ? body.set('filtro', filtro) : body;
+    body = rows ? body.set('rows', rows) : body;
+    body = page ? body.set('page', page) : body;
     return this.http
-      .get<RespuestaCliente>(this.baseUrl + 'clientes/', {params: body})
+      .get<RespuestaCliente>(this.baseUrl + 'clientes/', { params: body })
       .pipe(map((result) => result));
   }
-
-  obtenerClientePorId(id: string) {
-    debugger;
-    return this.http.get<RespuestaCliente>(this.baseUrl + 'cliente/' + id).pipe(
-      map(result => {
-        if (Array.isArray(result.data)) {
-          result.data.sort((a: Cliente, b: Cliente) => a.id - b.id);
-        }
-        return result;
-      })
-    );
-  }
   
+  obtenerClientePorId(id: string) {
+    return this.http.get<RespuestaCliente>(this.baseUrl + 'cliente/' + id);
+  }
 
   addCliente(cliente: Cliente) {
     return this.http.post<RespuestaCliente>(
@@ -57,7 +53,7 @@ export class ClienteService {
     );
   }
 
-  updateCliente(cliente:Cliente, id: string) {
+  updateCliente(cliente: Cliente, id: string) {
     return this.http.put<RespuestaCliente>(
       this.baseUrl + 'cliente/' + id,
       cliente,

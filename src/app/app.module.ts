@@ -10,7 +10,13 @@ import { ClienteModule } from './clientes/ClienteModule';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, PaginaModule, HttpClientModule, ClienteModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    PaginaModule,
+    HttpClientModule,
+    ClienteModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

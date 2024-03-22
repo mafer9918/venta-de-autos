@@ -13,7 +13,7 @@ export class CalificacionComponent implements OnInit {
 
   ngOnInit() {
     for(let i=0; i<this.calificacion; i++){
-      this.lista.push(1);
+      this.lista.push(i);
     }
   }
 

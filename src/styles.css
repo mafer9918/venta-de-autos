@@ -3,3 +3,24 @@
     height: 42px;
     font-size: 16px !important;
 }
+.logo{
+    width: 40%;
+    height: 100%;
+}
+.tableUser{
+    background-color: #E4D8EF;
+    border-radius: 20px;
+    height: auto;
+}
+.user{
+    height: 200px;
+    width: 200px;
+}
+.nombreuser{
+    font-size: 30px;
+    font-weight: 700;
+}
+.infoUser{
+    font-size: 15px;
+    font-style: italic;
+}

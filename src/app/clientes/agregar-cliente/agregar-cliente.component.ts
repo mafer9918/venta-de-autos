@@ -16,7 +16,7 @@ export class AgregarClienteComponent implements OnInit {
   isEdit: boolean;
   cliente: Cliente | undefined;
   isChecked: boolean = false;
-  showPassword:boolean = false;
+  showPassword: boolean = false;
 
   constructor(
     fb: FormBuilder,
@@ -27,49 +27,34 @@ export class AgregarClienteComponent implements OnInit {
     this.id = '';
     this.isEdit = false;
     this.clienteForm = fb.group({
-      isChecked: [false],
-      id: [
-        { value: '', disabled: this.isEdit }
-      ],
+      isChecked: [this.isChecked],
       nombre: [
         { value: '', disabled: this.isEdit },
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(1),
           Validators.maxLength(50),
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*$')
         ],
       ],
       apellido: [
         '',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(1),
           Validators.maxLength(50),
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*$')
         ],
       ],
-      password: [
-        '',
-        [
-          Validators.minLength(8),
-          Validators.maxLength(30),
-        ],
-      ],
-      telefono: [
-        '',
-        [
-          Validators.minLength(7),
-          Validators.maxLength(10),
-        ],
-      ],
-      usuario: [
-        '',
-        [
-          Validators.minLength(5),
-          Validators.maxLength(25),
-        ],
-      ],
-      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.minLength(4), Validators.maxLength(30)]],
+      telefono: ['', []],
+      email: ['', []]
     });
+
+    if (!this.isChecked) {
+      this.clienteForm.get('email')?.clearValidators();
+      this.clienteForm.get('telefono')?.clearValidators();
+    }
   }
 
   ngOnInit(): void {
@@ -80,16 +65,21 @@ export class AgregarClienteComponent implements OnInit {
         this.clienteService.obtenerClientePorId(this.id).subscribe((result) => {
           if (result.codigo == '1') {
             this.clienteForm.setValue({
-              id: result.data.id,
               nombre: result.data.nombre,
               apellido: result.data.apellido,
-              usuario: result.data.usuario,
               email: result.data.email,
               telefono: result.data.telefono,
               password: result.data.password,
-              foto: result.data.foto,
+              isChecked:
+                (result.data.email != null && result.data.email != '') ||
+                (result.data.telefono != null && result.data.telefono != ''),
             });
-            this.clienteForm.get('id')?.disable();
+            if (
+              (result.data.email != null && result.data.email != '') ||
+              (result.data.telefono != null && result.data.telefono != '')
+            ) {
+              this.isChecked = true;
+            }
           } else {
             Swal.fire({
               title: 'Error',
@@ -101,6 +91,30 @@ export class AgregarClienteComponent implements OnInit {
       } else {
         this.isEdit = false;
       }
+    });
+    this.validarCampos();
+  }
+
+  validarCampos(){
+    this.clienteForm.get('isChecked')?.valueChanges.subscribe((isChecked) => {
+      if (isChecked) {
+        this.clienteForm.get('email')?.setValidators([
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(50),
+        ]);
+        this.clienteForm.get('telefono')?.setValidators([
+          Validators.required,
+          Validators.minLength(7),
+          Validators.maxLength(10),
+          Validators.pattern('^[0-9]*$') 
+        ]);
+      } else {
+        this.clienteForm.get('email')?.clearValidators();
+        this.clienteForm.get('telefono')?.clearValidators();
+      }
+      this.clienteForm.get('email')?.updateValueAndValidity();
+      this.clienteForm.get('telefono')?.updateValueAndValidity();
     });
   }
 
@@ -163,7 +177,8 @@ export class AgregarClienteComponent implements OnInit {
   }
 
   onChange() {
-    this.isChecked = this.clienteForm.get('isChecked')?.value;
+    this.isChecked = !this.isChecked;
+    this.limpiar();
   }
 
   togglePasswordVisibility(): void {
@@ -173,5 +188,10 @@ export class AgregarClienteComponent implements OnInit {
   regresar() {
     this.isEdit = false;
     this.router.navigate(['clientes']);
+  }
+
+  limpiar() {
+    this.clienteForm.get('email')?.setValue('');
+    this.clienteForm.get('telefono')?.setValue('');
   }
 }

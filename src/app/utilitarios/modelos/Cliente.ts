@@ -6,4 +6,5 @@ export interface Cliente{
     telefono: string;
     email: string;
     usuario: string;
+    isChecked: boolean;
 }

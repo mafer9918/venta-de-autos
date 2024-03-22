@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-6">FILTRADO POR: {{ filtro }}</div>
       <div class="col-6 d-flex justify-content-end">
-        <button class="btn btn-info" [routerLink]="['/nuevoCliente']">
+        <button class="btn btn-dark" [routerLink]="['/nuevoCliente']">
           Agregar cliente
         </button>
       </div>
@@ -30,7 +30,7 @@
               <td colspan="6"></td>
               <td>
                 <div class="row">
-                  <td colspan="7">
+                  <div class="col">
                     <select
                       class="form-control"
                       [(ngModel)]="rows"
@@ -41,18 +41,18 @@
                       <option value="25">25</option>
                       <option value="100">100</option>
                     </select>
-                  </td>
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
-              <th>ID</th>
-              <th>NOMBRE</th>
-              <th>APELLIDO</th>
-              <th>TELEFONO</th>
-              <th>EMAIL</th>
-              <th>USUARIO</th>
-              <th>ACCIONES</th>
+              <th class="text-center">ID</th>
+              <th class="text-center">NOMBRE</th>
+              <th class="text-center">APELLIDO</th>
+              <th class="text-center">TELEFONO</th>
+              <th class="text-center">EMAIL</th>
+              <th class="text-center">USUARIO</th>
+              <th class="text-center">ACCIONES</th>
             </tr>
           </thead>
           <tbody>
@@ -60,12 +60,12 @@
               <td>
                 {{ item.id }}
               </td>
-              <td>{{ item.nombre }}</td>
-              <td>{{ item.apellido }}</td>
-              <td>{{ item.telefono }}</td>
-              <td>{{ item.email }}</td>
-              <td>{{ item.usuario }}</td>
-              <td>
+              <td class="text-center">{{ item.nombre }}</td>
+              <td class="text-center">{{ item.apellido }}</td>
+              <td class="text-center">{{ item.telefono }}</td>
+              <td class="text-center">{{ item.email }}</td>
+              <td class="text-center">{{ item.usuario }}</td>
+              <td class="text-center">
                 <button
                   class="btn btn-primary"
                   [routerLink]="['/cliente/' + item.id]"
@@ -103,7 +103,7 @@
                     <li
                       class="page-item"
                       *ngFor="let pagina of listaPaginas"
-                      [ngClass]=""
+                      [ngClass]="{ active: pagina == page }"
                     >
                       <a class="page-link" (click)="cambiarPagina(pagina)">{{
                         pagina

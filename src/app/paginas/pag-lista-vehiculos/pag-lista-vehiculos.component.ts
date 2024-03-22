@@ -33,7 +33,7 @@ export class PagListaVehiculosComponent implements OnInit {
   }
 
   recepcion(dato: number) {
-    this.route.navigate(['vehiculo/']);
+    alert("La calificacion del vehículo es de: " + dato);
   }
 
   consultarVehiculos() {
@@ -85,6 +85,7 @@ export class PagListaVehiculosComponent implements OnInit {
       if (res.isConfirmed) {
         this.vehiculoService.deleteVehiculo(id).subscribe((data) => {
           if (data.codigo == '1') {
+            this.consultarVehiculos();
             Swal.fire({
               title: 'Éxito',
               text: 'Vehículo eliminado con éxito',
@@ -92,7 +93,7 @@ export class PagListaVehiculosComponent implements OnInit {
             });
           }
         });
-        this.consultarVehiculos();
+        
       }
     });
   }
