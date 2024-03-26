@@ -76,7 +76,7 @@ export class PagListaVehiculosComponent implements OnInit {
 
   eliminarVehiculo(id: string): void {
     Swal.fire({
-      title: 'Estás seguro que deseas eliminar este registro?',
+      title: '¿Estás seguro que deseas eliminar este registro?',
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'No',
