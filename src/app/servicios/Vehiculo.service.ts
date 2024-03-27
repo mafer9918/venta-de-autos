@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Vehiculo } from '../utilitarios/modelos/Vehiculo';
 import {
-  BehaviorSubject,
-  Subject,
   Observable,
-  catchError,
-  map,
-  throwError,
 } from 'rxjs';
 import { HttpBackend, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Respuesta } from '../utilitarios/modelos/Respuesta';
@@ -33,7 +28,6 @@ export class VehiculoService {
     body = page ? body.set('page', page): body;
     return this.http
       .get<Respuesta>(this.baseUrl + 'vehiculos/', {params: body});
-      //.pipe(map((result) => result));
   }
 
   obtenerVehiculoPorId(id: string) {

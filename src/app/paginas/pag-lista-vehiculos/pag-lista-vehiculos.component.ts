@@ -33,7 +33,7 @@ export class PagListaVehiculosComponent implements OnInit {
   }
 
   recepcion(dato: number) {
-    alert("La calificacion del vehículo es de: " + dato);
+    alert('La calificacion del vehículo es de: ' + dato);
   }
 
   consultarVehiculos() {
@@ -60,15 +60,15 @@ export class PagListaVehiculosComponent implements OnInit {
     }
   }
 
-  siguiente(){
-    if(this.page <this.pages){
+  siguiente() {
+    if (this.page < this.pages) {
       this.page++;
       this.consultarVehiculos();
     }
   }
 
-  atras(){
-    if(this.page > 1){
+  atras() {
+    if (this.page > 1) {
       this.page--;
       this.consultarVehiculos();
     }
@@ -93,7 +93,6 @@ export class PagListaVehiculosComponent implements OnInit {
             });
           }
         });
-        
       }
     });
   }

@@ -41,7 +41,7 @@ export class ClienteService {
       .pipe(map((result) => result));
   }
   
-  obtenerClientePorId(id: string) {
+  obtenerClientePorId(id: number) {
     return this.http.get<RespuestaCliente>(this.baseUrl + 'cliente/' + id);
   }
 
@@ -53,7 +53,7 @@ export class ClienteService {
     );
   }
 
-  updateCliente(cliente: Cliente, id: string) {
+  updateCliente(cliente: Cliente, id: number) {
     return this.http.put<RespuestaCliente>(
       this.baseUrl + 'cliente/' + id,
       cliente,
@@ -61,7 +61,7 @@ export class ClienteService {
     );
   }
 
-  deleteCliente(id: string) {
+  deleteCliente(id: number) {
     return this.http.delete<RespuestaCliente>(this.baseUrl + 'cliente/' + id);
   }
 }

@@ -72,7 +72,8 @@ export class AddVehiculoFormComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = params['codigo'];
-      if (this.id) {
+      console.log(this.id);
+      if (this.id != '' && this.id != undefined) {
         this.isEdit = true;
         this.vehiculoService
           .obtenerVehiculoPorId(this.id)
@@ -137,7 +138,6 @@ export class AddVehiculoFormComponent implements OnInit {
           })
           .subscribe(
             (result) => {
-              console.log(JSON.stringify(result));
               if (result.codigo == '1') {
                 Swal.fire({
                   title: 'Éxito',
@@ -157,7 +157,7 @@ export class AddVehiculoFormComponent implements OnInit {
               }
             },
             (error) => {
-              let errorMessage = "";
+              let errorMessage = '';
               if (error.error && error.error.error.codigo) {
                 errorMessage = error.error.error.codigo;
               }

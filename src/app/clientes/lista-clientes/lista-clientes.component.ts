@@ -59,7 +59,7 @@ export class ListaClientesComponent implements OnInit {
     }
   }
 
-  eliminarCliente(id: string): void {
+  eliminarCliente(id: number): void {
     Swal.fire({
       title: '¿Estás seguro que deseas eliminar este registro?',
       showCancelButton: true,

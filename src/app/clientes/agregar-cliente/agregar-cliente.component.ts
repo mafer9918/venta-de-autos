@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class AgregarClienteComponent implements OnInit {
   clienteForm: FormGroup;
-  id: string;
+  id: number;
   isEdit: boolean;
   cliente: Cliente | undefined;
   isChecked: boolean = false;
@@ -24,7 +24,7 @@ export class AgregarClienteComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.id = '';
+    this.id = 0;
     this.isEdit = false;
     this.clienteForm = fb.group({
       isChecked: [this.isChecked],
@@ -34,7 +34,7 @@ export class AgregarClienteComponent implements OnInit {
           Validators.required,
           Validators.minLength(1),
           Validators.maxLength(50),
-          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*$')
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*$'),
         ],
       ],
       apellido: [
@@ -43,12 +43,12 @@ export class AgregarClienteComponent implements OnInit {
           Validators.required,
           Validators.minLength(1),
           Validators.maxLength(50),
-          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*$')
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*$'),
         ],
       ],
       password: ['', [Validators.minLength(4), Validators.maxLength(30)]],
       telefono: ['', []],
-      email: ['', []]
+      email: ['', []],
     });
 
     if (!this.isChecked) {
@@ -60,7 +60,7 @@ export class AgregarClienteComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
-      if (this.id) {
+      if (this.id != null && this.id != undefined) {
         this.isEdit = true;
         this.clienteService.obtenerClientePorId(this.id).subscribe((result) => {
           if (result.codigo == '1') {
@@ -95,20 +95,24 @@ export class AgregarClienteComponent implements OnInit {
     this.validarCampos();
   }
 
-  validarCampos(){
+  validarCampos() {
     this.clienteForm.get('isChecked')?.valueChanges.subscribe((isChecked) => {
       if (isChecked) {
-        this.clienteForm.get('email')?.setValidators([
-          Validators.required,
-          Validators.email,
-          Validators.maxLength(50),
-        ]);
-        this.clienteForm.get('telefono')?.setValidators([
-          Validators.required,
-          Validators.minLength(7),
-          Validators.maxLength(10),
-          Validators.pattern('^[0-9]*$') 
-        ]);
+        this.clienteForm
+          .get('email')
+          ?.setValidators([
+            Validators.required,
+            Validators.email,
+            Validators.maxLength(50),
+          ]);
+        this.clienteForm
+          .get('telefono')
+          ?.setValidators([
+            Validators.required,
+            Validators.minLength(7),
+            Validators.maxLength(10),
+            Validators.pattern('^[0-9]*$'),
+          ]);
       } else {
         this.clienteForm.get('email')?.clearValidators();
         this.clienteForm.get('telefono')?.clearValidators();
